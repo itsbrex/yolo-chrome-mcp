@@ -15,4 +15,4 @@
   3. Register it in the `handlers` table in `extension/src/background.ts`
   4. Add a case to `scripts/e2e.mjs`
 - Version lives in several files (root/server/extension `package.json`, `extension/manifest.json`). The `.mcpb` bundle version is NOT one of them: `scripts/build-mcpb.mjs` injects the root `package.json` version into the manifest at build time, so the `version` field committed in `mcpb/manifest.json` is just a template and is ignored at build. Don't rely on bumping it; bump the root `package.json`.
-- Distribution: pushing a `v*` tag fires `.github/workflows/release.yml`, which runs `npm publish` and creates a GitHub Release. Requires `NPM_TOKEN` in repo secrets.
+- Release rule: a normal push to `main` does not publish. For every release, create and push a new version tag such as `v0.3.3`; the tag starts `.github/workflows/release.yml` and rolls out npm, GitHub Release, and Chrome Web Store.
